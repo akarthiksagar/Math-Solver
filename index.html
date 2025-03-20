@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSolver Pro - Smart Mathematics Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.9);
+            padding: 1rem 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #64ffda;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #ccd6f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #64ffda;
+        }
+        .container {
+            padding-top: 5rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .container {
+                padding-top: 8rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="math-background"></div>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="#" class="logo">MathSolver Pro</a>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#workspace" class="nav-link">Calculator</a>
+                <a href="login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <a href="signup.html" class="nav-link"><i class="fas fa-user-plus"></i> Sign Up</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Transform Complex Math into Simple Solutions</h1>
+                <p class="hero-subtitle">Experience mathematics with our powerful solver. Type any mathematical problem and get instant, step-by-step solutions.</p>
+                <div class="hero-buttons">
+                    <a href="#workspace" class="btn btn-primary">Start Solving</a>
+                    <a href="#features" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-calculator feature-icon"></i>
+                <h3 class="feature-title">Basic Calculator</h3>
+                <p class="feature-description">Simple and efficient calculator for basic arithmetic operations.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-history feature-icon"></i>
+                <h3 class="feature-title">Answer Memory</h3>
+                <p class="feature-description">Use previous answers in new calculations with the Ans button.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-keyboard feature-icon"></i>
+                <h3 class="feature-title">Easy Input</h3>
+                <p class="feature-description">Type directly or use the calculator buttons for input.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt feature-icon"></i>
+                <h3 class="feature-title">Mobile Friendly</h3>
+                <p class="feature-description">Use the calculator anywhere, anytime, on any device.</p>
+            </div>
+        </section>
+
+        <section id="workspace" class="math-workspace">
+            <h2>Math Workspace</h2>
+            
+            <div class="math-categories">
+                <button class="category-btn active" data-category="algebra">Algebra</button>
+                <button class="category-btn" data-category="calculus">Calculus</button>
+                <button class="category-btn" data-category="geometry">Geometry</button>
+                <button class="category-btn" data-category="trigonometry">Trigonometry</button>
+            </div>
+
+            <div class="input-mode-toggle">
+                <button class="tool-btn active" data-mode="calculator">
+                    <i class="fas fa-calculator"></i> Calculator
+                </button>
+                <button class="tool-btn" data-mode="handwriting">
+                    <i class="fas fa-pen"></i> Handwriting
+                </button>
+            </div>
+
+            <div id="handwriting-container" class="handwriting-container hidden">
+                <div class="tools-container">
+                    <button class="tool-btn active"><i class="fas fa-pen"></i> Pen</button>
+                    <button class="tool-btn"><i class="fas fa-eraser"></i> Eraser</button>
+                    <button class="tool-btn"><i class="fas fa-trash"></i> Clear</button>
+                    <button class="tool-btn"><i class="fas fa-calculator"></i> Solve</button>
+                </div>
+                
+                <div class="canvas-container">
+                    <canvas id="drawingCanvas" width="800" height="400"></canvas>
+                </div>
+            </div>
+
+            <div id="calculator-container" class="calculator-container active">
+                <input type="text" id="calc-input" class="calculator-input" placeholder="Type your equation here...">
+                <div class="calculator-sections">
+                    <button class="calculator-section-btn active" data-section="basic">Basic</button>
+                    <button class="calculator-section-btn" data-section="functions">Functions</button>
+                    <button class="calculator-section-btn" data-section="constants">Constants</button>
+                </div>
+                <div id="basic-section" class="calculator-grid">
+                    <button class="calculator-button" data-value="(">(</button>
+                    <button class="calculator-button" data-value=")">)</button>
+                    <button class="calculator-button" data-value="7">7</button>
+                    <button class="calculator-button" data-value="8">8</button>
+                    <button class="calculator-button" data-value="9">9</button>
+                    <button class="calculator-button operator" data-value="/">/</button>
+                    <button class="calculator-button clear" data-value="C">C</button>
+                    <button class="calculator-button" data-value="⌫">⌫</button>
+                    
+                    <button class="calculator-button" data-value="4">4</button>
+                    <button class="calculator-button" data-value="5">5</button>
+                    <button class="calculator-button" data-value="6">6</button>
+                    <button class="calculator-button operator" data-value="×">×</button>
+                    <button class="calculator-button operator" data-value="−">−</button>
+                    <button class="calculator-button operator" data-value="+">+</button>
+                    <button class="calculator-button operator" data-value=".">.</button>
+                    <button class="calculator-button operator" data-value="ans">Ans</button>
+                    
+                    <button class="calculator-button" data-value="1">1</button>
+                    <button class="calculator-button" data-value="2">2</button>
+                    <button class="calculator-button" data-value="3">3</button>
+                    <button class="calculator-button" data-value="0">0</button>
+                    <button class="calculator-button equals" data-value="=">=</button>
+                    <button class="calculator-button solve" data-value="Solve">Solve</button>
+                </div>
+                
+                <div id="functions-section" class="calculator-grid" style="display: none;">
+                    <button class="calculator-button function" data-value="sin">sin</button>
+                    <button class="calculator-button function" data-value="cos">cos</button>
+                    <button class="calculator-button function" data-value="tan">tan</button>
+                    <button class="calculator-button function" data-value="log">log</button>
+                    <button class="calculator-button function" data-value="ln">ln</button>
+                    <button class="calculator-button function" data-value="√">√</button>
+                    <button class="calculator-button function" data-value="∛">∛</button>
+                    <button class="calculator-button function" data-value="x²">x²</button>
+                    <button class="calculator-button function" data-value="x³">x³</button>
+                    <button class="calculator-button function" data-value="x^n">x^n</button>
+                    <button class="calculator-button function" data-value="|x|">|x|</button>
+                    <button class="calculator-button function" data-value="n!">n!</button>
+                </div>
+            
+                <div id="constants-section" class="calculator-grid" style="display: none;">
+                    <button class="calculator-button function" data-value="π">π</button>
+                    <button class="calculator-button function" data-value="e">e</button>
+                    <button class="calculator-button function" data-value="φ">φ</button>
+                </div>
+
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <span>Processing equation...</span>
+                </div>
+
+                <div class="error-message" id="error-message"></div>
+
+                <div class="result-container">
+                    <h3>Solution</h3>
+                    <div id="result"></div>
+                    <div class="steps-container" id="steps"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
